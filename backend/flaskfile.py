@@ -8,7 +8,7 @@ app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
 )
 
-default_message = "Hello, this is a Flask app running on Gunicorn inside Docker! this text change was deployed automatically!"
+default_message = "Hello, this is a Flask app running on Gunicorn inside Docker! this text change was deployed automatically! medhack changes working"
 
 @app.route('/', methods=['GET'])
 def home():
