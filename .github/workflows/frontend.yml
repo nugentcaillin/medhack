@@ -1,0 +1,47 @@
+name: publish docker image
+on: 
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend.yml'
+  workflow_dispatch:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: debug user
+        run: echo "User is ${{ vars.DOCKERHUB_USERNAME }}"
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend 
+          file: ./frontend/Dockerfile
+          push: true
+          tags: | 
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:${{ github.sha }}
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.FRONTEND_IMAGE_NAME }}:latest
+
+      - name: Request update on server
+        uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.PAT }}
+          repository: nugentcaillin/homelab-orchestration
+          event-type: update-frontend
+          client-payload: '{"new_tag": "${{ github.sha }}"}'
