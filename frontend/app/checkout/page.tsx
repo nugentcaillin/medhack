@@ -29,13 +29,18 @@ function CheckoutWrapper({
 function SoleModelDisplayer() {
     const containerRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(() => {
     if (typeof window !== 'undefined') {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        containerRef.current?.appendChild(renderer.domElement);
+        
+        // small hack to stop duplicate canvas addition on redirect
+        if (containerRef.current?.children.length == 1) {
+            containerRef.current.appendChild(renderer.domElement);
+        }
         
         const aspect = 2;
 
@@ -43,10 +48,6 @@ function SoleModelDisplayer() {
         
         camera.position.z = 5;
         
-        //const geometry = new THREE.BoxGeometry(1, 1, 1);
-        //const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        //const cube = new THREE.Mesh(geometry, material);
-        //scene.add(cube);
 
         const loader = new GLTFLoader()
         loader.load('./test.glb', function(gltf) {
@@ -78,7 +79,6 @@ function SoleModelDisplayer() {
             console.log(error);
         }) 
 
-        renderer.render(scene, camera);
 
 
         
