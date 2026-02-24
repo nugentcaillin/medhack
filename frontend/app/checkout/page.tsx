@@ -3,6 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle   } from "@/components/ui/
 import "./checkoutStyle.css"
 import * as THREE from "three"
 import { useEffect, useRef } from "react"  
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field"
 
 
 
@@ -65,7 +66,7 @@ function SoleModelDisplayer() {
             //<div className="canvasStyle" ref={containerRef} />
     
     return (
-        <Card ref={containerRef}>
+        <Card ref={containerRef} className="soleDisplayCardWrapper">
             <CardHeader>
                 <CardTitle>Sole Model</CardTitle>
                 <CardDescription></CardDescription>
@@ -79,6 +80,35 @@ export default function Home() {
   return (
     <CheckoutWrapper>
         <SoleModelDisplayer />
+        <FieldGroup>
+            <FieldSet>
+                <FieldLegend>Item information</FieldLegend>
+                <FieldDescription>Options to customize your order</FieldDescription>
+                <Field>
+                    <FieldLabel>Shoe Size</FieldLabel>
+                </Field>
+                <Field>
+                    <FieldLabel>Additional Height</FieldLabel>
+                </Field>
+                <Field>
+                    <FieldLabel>Material</FieldLabel>
+                </Field>
+            </FieldSet>
+            <FieldSeparator />
+            <FieldSet>
+                <FieldLegend>Address Information</FieldLegend>
+                <FieldDescription>Location to deliver your order to</FieldDescription>
+                <Field>
+                    <FieldLabel>Street Address</FieldLabel>
+                </Field>
+                <div className="cityPostcodeWrapper">
+                    <Field>
+                        <FieldLabel>City</FieldLabel>
+                    </Field>
+                    <Field>Postcode</Field>
+                </div>
+            </FieldSet>
+        </FieldGroup>
     </CheckoutWrapper>
   )
 }

@@ -1,9 +1,19 @@
 .checkoutWrapper {
-    padding: 1rem;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
 }
 
-.canvasStyle {
-    height: 10rem;
-    max-height: 10rem;
+.soleDisplayCardWrapper {
+    max-width: 100%;
+}
+
+.cityPostcodeWrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
