@@ -64,10 +64,6 @@ function SoleModelDisplayer() {
         renderScene();
 
     }}, []);
-
-    
-
-            //<div className="canvasStyle" ref={containerRef} />
     
     return (
         <Card ref={containerRef} className="soleDisplayCardWrapper">
@@ -86,7 +82,7 @@ export default function Home() {
 
   return (
 
-    <CheckoutWrapper>
+    <div className="checkoutPageWrapper">
         <SoleModelDisplayer />
         <FieldGroup>
             <FieldSet>
@@ -155,6 +151,6 @@ export default function Home() {
             </FieldSet>
             <Button>Submit</Button>
         </FieldGroup>
-    </CheckoutWrapper>
+    </div>
   )
 }
