@@ -2,8 +2,12 @@
 import { Card, CardDescription, CardHeader, CardTitle   } from "@/components/ui/card"
 import "./checkoutStyle.css"
 import * as THREE from "three"
-import { useEffect, useRef } from "react"  
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field"
+import { useEffect, useRef, useState } from "react"  
+import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Slider } from "@/components/ui/slider"
 
 
 
@@ -77,7 +81,11 @@ function SoleModelDisplayer() {
 
 
 export default function Home() {
+
+    const [extraHeight, setExtraHeight] = useState([0]);
+
   return (
+
     <CheckoutWrapper>
         <SoleModelDisplayer />
         <FieldGroup>
@@ -86,12 +94,44 @@ export default function Home() {
                 <FieldDescription>Options to customize your order</FieldDescription>
                 <Field>
                     <FieldLabel>Shoe Size</FieldLabel>
+                    <Select>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Choose Shoe Size" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value="w5">Women's size 5</SelectItem>
+                                <SelectItem value="m5">Men's size 5</SelectItem>
+                                <SelectItem value="w6">Women's size 6</SelectItem>
+                                <SelectItem value="m6">Men's size 6</SelectItem>
+                                <SelectItem value="w7">Women's size 7</SelectItem>
+                                <SelectItem value="m7">Men's size 7</SelectItem>
+                                <SelectItem value="w8">Women's size 8</SelectItem>
+                                <SelectItem value="m8">Men's size 8</SelectItem>
+                                <SelectItem value="w9">Women's size 9</SelectItem>
+                                <SelectItem value="m9">Men's size 9</SelectItem>
+                                <SelectItem value="w10">Women's size 10</SelectItem>
+                                <SelectItem value="m10">Men's size 10</SelectItem>
+                                <SelectItem value="w11">Women's size 11</SelectItem>
+                                <SelectItem value="m11">Men's size 11</SelectItem>
+                                <SelectItem value="w12">Women's size 12</SelectItem>
+                                <SelectItem value="m12">Men's size 12</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </Field>
                 <Field>
                     <FieldLabel>Additional Height</FieldLabel>
-                </Field>
-                <Field>
-                    <FieldLabel>Material</FieldLabel>
+                    <FieldDescription>Set additional height preferences (0in - 3in)</FieldDescription>
+                    <FieldContent>{extraHeight} in</FieldContent>
+                    <Slider
+                        value={extraHeight}
+                        onValueChange={(height) => setExtraHeight(height)}
+                        max={3}
+                        step={0.5}
+                    >
+
+                    </Slider>
                 </Field>
             </FieldSet>
             <FieldSeparator />
@@ -100,14 +140,20 @@ export default function Home() {
                 <FieldDescription>Location to deliver your order to</FieldDescription>
                 <Field>
                     <FieldLabel>Street Address</FieldLabel>
+                    <Input id="street" type="text" placeholder="123 Street St" />
                 </Field>
                 <div className="cityPostcodeWrapper">
                     <Field>
                         <FieldLabel>City</FieldLabel>
+                        <Input id="city" type="text" placeholder="Melbourne" />
                     </Field>
-                    <Field>Postcode</Field>
+                    <Field>
+                        <FieldLabel>Postcode</FieldLabel>
+                        <Input id="postcode" type="text" placeholder="3000" />
+                    </Field>
                 </div>
             </FieldSet>
+            <Button>Submit</Button>
         </FieldGroup>
     </CheckoutWrapper>
   )

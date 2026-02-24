@@ -1,5 +1,5 @@
 .checkoutWrapper {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     max-width: 100vw;
     box-sizing: border-box;
@@ -7,6 +7,7 @@
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
+    padding-bottom: 30vh;
 }
 
 .soleDisplayCardWrapper {
@@ -16,4 +17,5 @@
 .cityPostcodeWrapper {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-gap: 3rem;
 }
