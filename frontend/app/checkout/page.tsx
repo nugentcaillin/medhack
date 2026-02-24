@@ -2,6 +2,7 @@
 import { Card, CardDescription, CardHeader, CardTitle   } from "@/components/ui/card"
 import "./checkoutStyle.css"
 import * as THREE from "three"
+import { GLTFLoader } from "three/examples/jsm/Addons.js"
 import { useEffect, useRef, useState } from "react"  
 import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldLegend, FieldSeparator, FieldSet } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
@@ -36,32 +37,51 @@ function SoleModelDisplayer() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         containerRef.current?.appendChild(renderer.domElement);
         
+        const aspect = 2;
+
+        camera.zoom = 2;
+        
         camera.position.z = 5;
         
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        const aspect = 2;
-        scene.add(cube);
+        //const geometry = new THREE.BoxGeometry(1, 1, 1);
+        //const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        //const cube = new THREE.Mesh(geometry, material);
+        //scene.add(cube);
+
+        const loader = new GLTFLoader()
+        loader.load('./test.glb', function(gltf) {
+            const obj = gltf.scene
+            scene.add(obj);
+        
+            const renderScene = () => {
+                obj.rotation.x += 0.003;
+                obj.rotation.y += 0.01;
+                camera.aspect = aspect;
+                camera.updateProjectionMatrix()
+
+                let parentWidth = renderer.domElement.parentElement?.clientWidth || 100;
+                let height = parentWidth / aspect;
+
+                renderer.render(scene, camera);
+                renderer.setSize(parentWidth, height);
+                requestAnimationFrame(renderScene);
+            };
+
+            renderScene();
+        
+        
+        
+        
+        
+        
+        }, undefined, function(error) {
+            console.log(error);
+        }) 
 
         renderer.render(scene, camera);
 
 
-        const renderScene = () => {
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-            camera.aspect = aspect;
-            camera.updateProjectionMatrix()
-
-            let parentWidth = renderer.domElement.parentElement?.clientWidth || 100;
-            let height = parentWidth / aspect;
-
-            renderer.render(scene, camera);
-            renderer.setSize(parentWidth, height);
-            requestAnimationFrame(renderScene);
-        };
-
-        renderScene();
+        
 
     }}, []);
     
