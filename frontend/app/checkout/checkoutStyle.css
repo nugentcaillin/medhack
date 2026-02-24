@@ -1,3 +1,9 @@
 .checkoutWrapper {
     padding: 1rem;
+    box-sizing: border-box;
+}
+
+.canvasStyle {
+    height: 10rem;
+    max-height: 10rem;
 }
