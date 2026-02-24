@@ -3,6 +3,7 @@
 import { useState } from "react";
 import FootCamera from "./FootCamera";
 import PhotoConfirmation from "./PhotoConfirmation";
+import { redirect } from "next/navigation";
 
 const STEPS = [
   {
@@ -53,6 +54,7 @@ export default function PhotoCapture() {
     // TODO: Handle photo confirmation (e.g., upload to server)
     console.log("Photos confirmed:", capturedPhotos);
     // You can add your confirmation logic here
+    redirect("/checkout")
   };
 
   const handleRetake = () => {
