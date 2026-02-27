@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
+import Image from "next/image"
 
 
 
@@ -44,13 +45,13 @@ function SoleModelDisplayer() {
         
         const aspect = 2;
 
-        camera.zoom = 2;
+        camera.zoom = 0.25;
         
-        camera.position.z = 5;
+        camera.position.z = 8;
         
 
         const loader = new GLTFLoader()
-        loader.load('./test.glb', function(gltf) {
+        loader.load('./foot.glb', function(gltf) {
             const obj = gltf.scene
             scene.add(obj);
         
@@ -95,6 +96,22 @@ function SoleModelDisplayer() {
     )
 }
 
+function SoleHeatMapDisplayer() {
+    return (
+        <Card className="soleDisplayCardWrapper">
+            <CardTitle>Heat map of Soles</CardTitle>
+            {/* <CardDescription>A heatmap of your soles generated with our model and used to create your personalised insoles</CardDescription> */}
+            <Image
+                className="h-50 w-auto object-contain"
+                width={264}
+                height={191}
+                src={"/heat-map.jpeg"}
+                alt="Heat map of foot"
+            />
+        </Card>
+    )
+}
+
 
 export default function Home() {
 
@@ -103,7 +120,7 @@ export default function Home() {
   return (
 
     <div className="checkoutPageWrapper">
-        <SoleModelDisplayer />
+        <SoleHeatMapDisplayer />
         <FieldGroup>
             <FieldSet>
                 <FieldLegend>Item information</FieldLegend>
